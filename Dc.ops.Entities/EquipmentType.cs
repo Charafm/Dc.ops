@@ -5,19 +5,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Dc.ops.Entities
 {
-    [Table("UserRoles")]
-    public class UserRole
+    [Table("EquipmentTypes")]
+    public class EquipmentType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid Id { get; set; }
 
         [Required]
-        [MaxLength(50)]
         public virtual string Title { get; set; }
 
-        public virtual ICollection<User> Users { get; set; }
+        public virtual ICollection<Equipment> Equipment { get; set; }
 
-       
+
     }
 }

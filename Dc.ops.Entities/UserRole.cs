@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dc.ops.entities.Model
+namespace Dc.ops.Entities
 {
-    [Table("ActionTypes")]
-    public class ActionType
+    [Table("UserRoles")]
+    public class UserRole
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid Id { get; set; }
 
         [Required]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public virtual string Title { get; set; }
 
-        public virtual ICollection<EquipmentHistory> EquipmentHistories { get; set; }
+        public virtual ICollection<User> Users { get; set; }
 
-       
+
     }
 }

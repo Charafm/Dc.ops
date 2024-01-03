@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ClassLibrary1\Dc.ops.Entities.csproj" />
     <ProjectReference Include="..\Dc.ops.Context\Dc.ops.Context.csproj" />
+    <ProjectReference Include="..\Dc.ops.Entities\Dc.ops.Entities.csproj" />
   </ItemGroup>
 
 </Project>

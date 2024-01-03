@@ -14,13 +14,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Testing", "Testing", "{3D9B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTesting", "UnitTesting\UnitTesting.csproj", "{3E494A82-342A-4F7D-8A40-1423DCE464C6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dc.ops.Entities", "ClassLibrary1\Dc.ops.Entities.csproj", "{015ACF4F-D9B6-4C9F-893A-30A68484BCBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dc.ops.Entities", "Dc.ops.Entities\Dc.ops.Entities.csproj", "{015ACF4F-D9B6-4C9F-893A-30A68484BCBC}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dc.ops.Context", "Dc.ops.Context\Dc.ops.Context.csproj", "{43C982FA-BE88-4219-A032-D5C4D6FACB08}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{E20AEAF9-BDDA-424D-A789-3052FE01B25D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dc.ops.Implementation", "Dc.ops.Implementation\Dc.ops.Implementation.csproj", "{1CB0E753-1319-4849-B13D-04D89F0FF634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dc.ops.Implementation", "Dc.ops.Implementation\Dc.ops.Implementation.csproj", "{1CB0E753-1319-4849-B13D-04D89F0FF634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

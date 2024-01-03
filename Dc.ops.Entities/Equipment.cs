@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dc.ops.entities.Model
+namespace Dc.ops.Entities
 {
     [Table("Equipments")]
     public class Equipment
@@ -24,6 +24,6 @@ namespace Dc.ops.entities.Model
 
         public virtual ICollection<EquipmentHistory> Histories { get; set; }
 
-        
+
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dc.ops.entities.Model
+namespace Dc.ops.Entities
 {
-    [Table("AssignLocations")]
-    public class AssignLocation
+    [Table("ActionTypes")]
+    public class ActionType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,11 +16,8 @@ namespace Dc.ops.entities.Model
         [MaxLength(100)]
         public virtual string Title { get; set; }
 
-        [MaxLength(255)]
-        public virtual string Description { get; set; }
+        public virtual ICollection<EquipmentHistory> EquipmentHistories { get; set; }
 
-        public virtual ICollection<AssignHistory> AssignHistories { get; set; }
 
-        
     }
 }

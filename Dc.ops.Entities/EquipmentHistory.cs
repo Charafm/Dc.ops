@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dc.ops.entities.Model
+namespace Dc.ops.Entities
+
 {
     [Table("EquipmentHistorys")]
     public class EquipmentHistory
@@ -12,16 +13,16 @@ namespace Dc.ops.entities.Model
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public virtual Guid Id { get; set; }
 
-        
+
         public virtual Equipment Equipment { get; set; }
 
-        
+
         public virtual ActionType Action { get; set; }
 
         [Required]
         public virtual User User { get; set; }
 
-        
+
         public virtual DateTime Date { get; set; }
 
         [MaxLength(255)]
