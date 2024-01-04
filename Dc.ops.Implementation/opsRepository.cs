@@ -22,6 +22,21 @@ public class OpsRep<T> where T : class
         this.dbSet = this.dcOpsDbContext.Set<T>();
     }
 
+    public IEnumerable<T> GetAll<T>()
+    {
+        try
+        {
+            
+            IEnumerable<T> entities = (IEnumerable<T>)dbSet.ToList();
+            return entities;
+        }
+        catch (Exception ex)
+        {
+            
+            logger.LogError(ex, "An error occurred while retrieving all entities");
+            throw;
+        }
+    }
     public IQueryable<T> Get(Expression<Func<T, bool>> predicate = null)
     {
         try
@@ -194,5 +209,9 @@ public class OpsRep<T> where T : class
             logger.LogError(ex, "An error occurred while updating an entity");
             throw; 
         }
+    }
+    public async Task SaveChangesAsync()
+    {
+        await dcOpsDbContext.SaveChangesAsync();
     }
 }

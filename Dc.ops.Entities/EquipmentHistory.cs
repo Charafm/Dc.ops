@@ -17,7 +17,7 @@ namespace Dc.ops.Entities
         public virtual Equipment Equipment { get; set; }
 
 
-        public virtual ActionType Action { get; set; }
+        public virtual string Action { get; set; }
 
         [Required]
         public virtual User User { get; set; }
