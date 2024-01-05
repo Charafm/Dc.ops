@@ -8,10 +8,11 @@ using System.Threading.Tasks;
 
 namespace Dc.ops.Manager.Managers
 {
-    internal class AssignLocationManager
+    public class AssignLocationManager
     {
         private readonly OpsRep<AssignLocation> locationRepository;
         private readonly ILogger<AssignLocationManager> logger;
+      
        
 
         public AssignLocationManager(

@@ -24,6 +24,7 @@ namespace Dc.ops.Entities
 
         public virtual ICollection<EquipmentHistory> Histories { get; set; }
 
+        public virtual ICollection<AssignHistory> AssignHistories { get; set; }
 
     }
 }

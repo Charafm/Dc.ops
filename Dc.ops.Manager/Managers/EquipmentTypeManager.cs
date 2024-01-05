@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Dc.ops.Manager.Managers
 {
-    internal class EquipmentTypeManager
+    public class EquipmentTypeManager
     {
         private readonly OpsRep<EquipmentType> equipmentTypeRepository;
         private readonly ILogger<EquipmentTypeManager> logger;
@@ -67,7 +67,7 @@ namespace Dc.ops.Manager.Managers
             }
         }
 
-        public async Task RemoveEquipmentTypeAsync(int equipmentTypeId)
+        public async Task RemoveEquipmentTypeAsync(Guid equipmentTypeId)
         {
             try
             {

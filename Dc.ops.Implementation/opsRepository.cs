@@ -22,22 +22,20 @@ public class OpsRep<T> where T : class
         this.dbSet = this.dcOpsDbContext.Set<T>();
     }
 
-    public IEnumerable<T> GetAll<T>()
+    public async Task<IEnumerable<T>> GetAll<T>()
     {
         try
         {
-            
-            IEnumerable<T> entities = (IEnumerable<T>)dbSet.ToList();
-            return entities;
+            return (IEnumerable<T>)await dbSet.ToListAsync();
         }
         catch (Exception ex)
         {
-            
             logger.LogError(ex, "An error occurred while retrieving all entities");
             throw;
         }
+    
     }
-    public IQueryable<T> Get(Expression<Func<T, bool>> predicate = null)
+    public async Task<IQueryable<T>> Get(Expression<Func<T, bool>> predicate = null)
     {
         try
         {
@@ -47,7 +45,7 @@ public class OpsRep<T> where T : class
             {
                 query = query.Where(predicate);
             }
-            return query;
+            return  query;
         }
         catch (Exception ex)
         {
@@ -57,7 +55,7 @@ public class OpsRep<T> where T : class
         }
     }
 
-    public IQueryable<T> GetWithNoTracking(Expression<Func<T, bool>> predicate = null)
+    public async Task<IQueryable<T>> GetWithNoTracking(Expression<Func<T, bool>> predicate = null)
     {
         try
         {
@@ -77,44 +75,11 @@ public class OpsRep<T> where T : class
         }
     }
 
-    public int Count(Func<T, bool> predicate = null)
+    public async Task<T> FindById(object id)
     {
         try
         {
-
-            IQueryable<T> query = dcOpsDbContext?.Set<T>() ?? new List<T>().AsQueryable();
-            return query.Count();
-        }
-        catch (Exception ex)
-        {
-            
-            logger.LogError(ex, "An error occurred while counting entities");
-            throw; 
-        }
-    }
-
-    public bool Any(Func<T, bool> predicate = null)
-    {
-        try
-        {
-
-            IQueryable<T> query = dcOpsDbContext?.Set<T>() ?? new List<T>().AsQueryable();
-            return query.Any();
-        }
-        catch (Exception ex)
-        {
-           
-            logger.LogError(ex, "An error occurred while checking for existence of entities");
-            throw;
-
-        }
-    }
-
-    public T FindById(object id)
-    {
-        try
-        {
-            return dbSet.Find(id);
+            return await dbSet.FindAsync(id);
         }
         catch (Exception ex)
         {
@@ -123,7 +88,7 @@ public class OpsRep<T> where T : class
         }
     }
 
-    public void Add(T entity)
+    public async Task Add(T entity)
     {
         try
         {
@@ -142,43 +107,36 @@ public class OpsRep<T> where T : class
         }
     }
 
-    public void Delete(object id)
+    public async Task Delete(object id)
     {
         try
         {
-           
-           
-            T entity = dbSet.Find(id);
+            T entity = await dbSet.FindAsync(id);
 
-           
             if (entity == null)
             {
                 throw new InvalidOperationException("Entity with the specified ID does not exist.");
             }
 
-            
             dbSet.Remove(entity);
         }
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while deleting an entity");
-            throw; 
+            throw;
         }
     }
 
-    public void Delete(T entity)
+    public async Task Delete(T entity)
     {
         try
         {
-            
             if (!(dcOpsDbContext.Entry(entity).State == EntityState.Detached))
             {
-                
                 dbSet.Remove(entity);
             }
             else
             {
-               
                 dbSet.Attach(entity);
                 dbSet.Remove(entity);
             }
@@ -186,11 +144,11 @@ public class OpsRep<T> where T : class
         catch (Exception ex)
         {
             logger.LogError(ex, "An error occurred while deleting an entity");
-            throw; 
+            throw;
         }
     }
 
-    public void Update(T entity)
+    public async Task Update(T entity)
     {
         try
         {
@@ -214,4 +172,39 @@ public class OpsRep<T> where T : class
     {
         await dcOpsDbContext.SaveChangesAsync();
     }
+
+    #region Might Need
+    public async Task<int> Count(Func<T, bool> predicate = null)
+    {
+        try
+        {
+
+            IQueryable<T> query = dcOpsDbContext?.Set<T>() ?? new List<T>().AsQueryable();
+            return query.Count();
+        }
+        catch (Exception ex)
+        {
+
+            logger.LogError(ex, "An error occurred while counting entities");
+            throw;
+        }
+    }
+
+    public bool Any(Func<T, bool> predicate = null)
+    {
+        try
+        {
+
+            IQueryable<T> query = dcOpsDbContext?.Set<T>() ?? new List<T>().AsQueryable();
+            return query.Any();
+        }
+        catch (Exception ex)
+        {
+
+            logger.LogError(ex, "An error occurred while checking for existence of entities");
+            throw;
+
+        }
+    }
+    #endregion
 }

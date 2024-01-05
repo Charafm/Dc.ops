@@ -23,5 +23,6 @@ namespace Dc.ops.Entities
         public virtual UserRole Role { get; set; }
 
         public virtual ICollection<EquipmentHistory> EquipmentHistories { get; set; }
+        public virtual ICollection<AssignHistory> AssignHistories { get; set; }
     }
 }

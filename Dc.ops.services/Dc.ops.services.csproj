@@ -7,8 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.3.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dc.ops.Context\Dc.ops.Context.csproj" />
+    <ProjectReference Include="..\Dc.ops.Entities\Dc.ops.Entities.csproj" />
+    <ProjectReference Include="..\Dc.ops.Implementation\Dc.ops.Implementation.csproj" />
+    <ProjectReference Include="..\Dc.ops.Manager\Dc.ops.Manager.csproj" />
+    <ProjectReference Include="..\Dc.ops.Web\Dc.ops.Web.csproj" />
   </ItemGroup>
 
 </Project>
