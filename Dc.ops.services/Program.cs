@@ -1,5 +1,12 @@
+using Dc.ops.Entities;
+using Dc.ops.Manager.Managers;
+using Dc.ops.config;
+
 var builder = WebApplication.CreateBuilder(args);
 
+//Injection of services:
+builder.Services.AddDependencies();
+builder.Services.AddLogging();
 // Add services to the container.
 
 builder.Services.AddControllers();

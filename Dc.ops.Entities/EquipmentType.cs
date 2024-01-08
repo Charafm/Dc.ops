@@ -15,7 +15,7 @@ namespace Dc.ops.Entities
         [Required]
         public virtual string Title { get; set; }
 
-        public virtual ICollection<Equipment> Equipment { get; set; }
+       
 
 
     }

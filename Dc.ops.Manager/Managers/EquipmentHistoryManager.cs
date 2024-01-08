@@ -29,14 +29,14 @@ namespace Dc.ops.Manager.Managers
                 Date = DateTime.UtcNow,
                 User = userManager.GetCurrentUser() // Get current user
             };
-             repository.Add(equipmentHistory);
+            await repository.Add(equipmentHistory);
             await repository.SaveChangesAsync();
         }
 
         // GetAllEquipmentHistories
         public async Task<IEnumerable<EquipmentHistory>> GetAllEquipmentHistories()
         {
-            return  repository.GetAll<EquipmentHistory>();
+            return  await repository.GetAll<EquipmentHistory>();
         }
 
         // GetEquipmentHistory based on various criteria
@@ -45,10 +45,10 @@ namespace Dc.ops.Manager.Managers
             Guid? userId = null,
             DateTime? startDate = null,
             DateTime? endDate = null,
-            string actionType = null)
+            string? actionType = null)
         {
             // Build a query with optional filters
-            var query = repository.GetAll<EquipmentHistory>();
+            var query = await repository.GetAll<EquipmentHistory>();
 
             if (equipmentId.HasValue)
             {
@@ -79,7 +79,7 @@ namespace Dc.ops.Manager.Managers
             var equipmentHistory = repository.FindById(historyId);
             if (equipmentHistory != null)
             {
-                repository.Delete(equipmentHistory);
+                await repository.Delete(equipmentHistory);
                 await repository.SaveChangesAsync();
             }
         }

@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Dc.ops.Context\Dc.ops.Context.csproj" />
+    <ProjectReference Include="..\Dc.ops.Entities\Dc.ops.Entities.csproj" />
+    <ProjectReference Include="..\Dc.ops.Manager\Dc.ops.Manager.csproj" />
+  </ItemGroup>
+
+</Project>

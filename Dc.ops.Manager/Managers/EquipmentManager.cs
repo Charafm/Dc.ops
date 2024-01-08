@@ -1,6 +1,7 @@
 ﻿using Dc.ops.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,20 @@ namespace Dc.ops.Manager.Managers
     {
         private readonly OpsRep<Equipment> equipmentRepository;
         
-        private readonly ILogger<EquipmentManager> logger;
+        private readonly ILogger logger;
         private readonly UserManager usermanager;
         private readonly EquipmentHistoryManager equipmentHistoryManager;
+ 
 
         public EquipmentManager(
             OpsRep<Equipment> equipmentRepository,
             ILogger<EquipmentManager> logger,
             UserManager usermanager,
-            EquipmentHistoryManager equipmentHistoryManager)
+            EquipmentHistoryManager equipmentHistoryManager
+            )
             
         {
             this.equipmentRepository = equipmentRepository;
-            
             this.logger = logger;
             this.usermanager = usermanager;
             this.equipmentHistoryManager = equipmentHistoryManager;
@@ -79,11 +81,12 @@ namespace Dc.ops.Manager.Managers
                 {
                     throw new InvalidOperationException("Equipment not found");
                 }
+                
+                    await equipmentRepository.Delete(equipment);
+                    await equipmentRepository.SaveChangesAsync();
+                    await equipmentHistoryManager.LogEquipmentHistory(equipment, "Removed");
+               
 
-                await equipmentRepository.Delete(equipment);
-               await  equipmentRepository.SaveChangesAsync();
-
-                await equipmentHistoryManager.LogEquipmentHistory(equipment, "Removed");
             }
             catch (Exception ex)
             {
@@ -94,25 +97,38 @@ namespace Dc.ops.Manager.Managers
 
         public async Task<IEnumerable<Equipment>> GetAllEquipment()
         {
-            try {
+            try
+            {
+                var equipmentList = await equipmentRepository.GetAll<Equipment>();
 
-                return  await equipmentRepository.GetAll<Equipment>();
-            } catch (Exception ex)
+                if (equipmentList.IsNullOrEmpty())
+                {
+                    
+                    logger.LogInformation("No equipment found.");
+                    return Enumerable.Empty<Equipment>();
+                }
+                else
+                {
+                    return equipmentList;
+                }
+            }
+            catch (Exception ex)
             {
                 logger.LogError(ex, "An error occurred while getting all equipments");
                 throw;
             }
         }
-        public async Task<IEnumerable<Equipment>> GetEquipmentAsync(string title = null, EquipmentType equipmentType = null)
+        public async Task<IEnumerable<Equipment>> GetEquipment(string title = null, EquipmentType equipmentType = null)
         {
-            var query = equipmentRepository.Get(title != null ? x => x.Title == title : null);
+            var query = await equipmentRepository.Get(title != null ? x => x.Title == title : null);
             query = equipmentType != null ? query.Where(x => x.Type == equipmentType) : query;
             return await query.ToListAsync();
         }
 
         public async Task<Equipment> GetEquipmentByIdAsync(Guid equipmentId)
         {
-            return  await equipmentRepository.FindById(equipmentId);
+            var equipment = await equipmentRepository.FindById(equipmentId);
+            return  equipment;
         }
 
       

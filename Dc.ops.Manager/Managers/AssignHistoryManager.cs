@@ -38,14 +38,14 @@ namespace Dc.ops.Manager.Managers
                 Date = DateTime.Now,
                 User =  userManager.GetCurrentUser() 
             };
-            repository.Add(assignHistory);
+            await repository.Add(assignHistory);
             await repository.SaveChangesAsync();
         }
 
         // GetAllAssignHistory
         public async Task<IEnumerable<AssignHistory>> GetAllAssignHistory()
         {
-            return  repository.GetAll<AssignHistory>();
+            return  await repository.GetAll<AssignHistory>();
         }
 
         // GetAssignHistory based on various criteria
@@ -57,7 +57,7 @@ namespace Dc.ops.Manager.Managers
             DateTime? endDate = null)
         {
             // Build a query with optional filters
-            var query = repository.GetAll<AssignHistory>();
+            var query = await repository.GetAll<AssignHistory>();
 
             if (equipmentId.HasValue)
             {

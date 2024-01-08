@@ -20,11 +20,10 @@ namespace Dc.ops.Entities
         [Required]
         public virtual int Quantity { get; set; }
 
-        public virtual string Description { get; set; }
 
-        public virtual ICollection<EquipmentHistory> Histories { get; set; }
+        public virtual string? Description { get; set; }
 
-        public virtual ICollection<AssignHistory> AssignHistories { get; set; }
+      
 
     }
 }

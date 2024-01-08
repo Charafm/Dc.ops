@@ -30,7 +30,7 @@ namespace Dc.ops.Manager.Managers
             try
             {
                 // Adjust based on your repository's method for retrieving locations
-                return  locationRepository.GetAll<AssignLocation>();
+                return  await locationRepository.GetAll<AssignLocation>();
             }
             catch (Exception ex)
             {
@@ -43,7 +43,7 @@ namespace Dc.ops.Manager.Managers
         {
             try
             {
-                locationRepository.Add(location);
+                await locationRepository.Add(location);
                 await locationRepository.SaveChangesAsync();
                
             }
@@ -58,7 +58,7 @@ namespace Dc.ops.Manager.Managers
         {
             try
             {
-               locationRepository.Update(location);
+               await locationRepository.Update(location);
                 await locationRepository.SaveChangesAsync();
                
             }
@@ -69,11 +69,11 @@ namespace Dc.ops.Manager.Managers
             }
         }
 
-        public async Task RemoveLocationAsync(AssignLocation location)
+        public async Task RemoveLocationAsync(Guid locationId)
         {
             try
             {
-               
+                var location = await GetLocationById(locationId);  
                 if (location == null)
                 {
                     throw new InvalidOperationException("Location not found");
@@ -85,13 +85,34 @@ namespace Dc.ops.Manager.Managers
                 //    throw new InvalidOperationException("Cannot remove a location that is currently assigned to equipment");
                 //}
 
-                 locationRepository.Delete(location);
+                await locationRepository.Delete(location);
                 await locationRepository.SaveChangesAsync();
                 
             }
             catch (Exception ex)
             {
                 logger.LogError(ex, "Failed to remove location");
+                throw;
+            }
+        }
+        public async Task<IEnumerable<AssignLocation>> GetLocationById(Guid locationId)
+        {
+            try
+            {
+
+                var locations = await locationRepository.Get(l => l.Id == locationId);
+
+                if (!locations.Any())
+                {
+                    logger.LogWarning("No locations found with ID {LocationId}", locationId);
+                    return Enumerable.Empty<AssignLocation>(); // Return an empty collection
+                }
+
+                return locations;
+            }
+            catch(Exception ex)
+            {
+                logger.LogError(ex, "Error getting location");
                 throw;
             }
         }
